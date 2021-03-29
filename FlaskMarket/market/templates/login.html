@@ -1,0 +1,26 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}
+    Login Page
+{% endblock title %}
+
+{% block content %}
+    {% from "layout/_macro.html" import input%}
+   
+    <h1>Login Form</h1>
+    <div class="container">
+        <form action="" method="post" novalidate>
+
+            {{form.hidden_tag()}}
+            {{ input(form=form.username, placeholder='User Name') }}
+            {{ input(form=form.password, placeholder='Password') }}
+            <div class="form-group">
+                {{ form.submit(class="btn btn-primary btn-lg btn-block") }}
+            </div>
+        </form>
+        <p>Do not have an account? <a class ='text-info' href ="{{url_for('register')}}">Register</a></p>
+    </div>
+    
+    
+    
+{% endblock content %}

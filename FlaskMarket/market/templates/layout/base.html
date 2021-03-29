@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+    {% include 'layout/_head.html' %}
+    <body>
+        {% include 'layout/_nav.html' %}
+        <main class ='container-fluid'>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class ='alert alert-{{category}} mt-2'>{{message}}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            {% block content %}
+            
+            {% endblock content %}
+        </main>
+        {% include 'layout/_script.html' %}
+    </body>
+</html>

@@ -1,0 +1,80 @@
+Help on method get in module sqlalchemy.orm.query:
+
+ggeett(ident) method of flask_sqlalchemy.BaseQuery instance
+    Return an instance based on the given primary key identifier,
+    or ``None`` if not found.
+    
+    .. deprecated:: 1.4 The :meth:`_orm.Query.get` method is considered legacy as of the 1.x series of SQLAlchemy and becomes a legacy construct in 2.0. The method is now available as :meth:`_orm.Session.get` (Background on SQLAlchemy 2.0 at: :ref:`migration_20_toplevel`)
+    
+    E.g.::
+    
+        my_user = session.query(User).get(5)
+    
+        some_object = session.query(VersionedFoo).get((5, 10))
+    
+        some_object = session.query(VersionedFoo).get(
+            {"id": 5, "version_id": 10})
+    
+    :meth:`_query.Query.get` is special in that it provides direct
+    access to the identity map of the owning :class:`.Session`.
+    If the given primary key identifier is present
+    in the local identity map, the object is returned
+    directly from this collection and no SQL is emitted,
+    unless the object has been marked fully expired.
+    If not present,
+    a SELECT is performed in order to locate the object.
+    
+    :meth:`_query.Query.get` also will perform a check if
+    the object is present in the identity map and
+    marked as expired - a SELECT
+    is emitted to refresh the object as well as to
+    ensure that the row is still present.
+    If not, :class:`~sqlalchemy.orm.exc.ObjectDeletedError` is raised.
+    
+    :meth:`_query.Query.get` is only used to return a single
+    mapped instance, not multiple instances or
+    individual column constructs, and strictly
+    on a single primary key value.  The originating
+    :class:`_query.Query` must be constructed in this way,
+    i.e. against a single mapped entity,
+    with no additional filtering criterion.  Loading
+    options via :meth:`_query.Query.options` may be applied
+    however, and will be used if the object is not
+    yet locally present.
+    
+    :param ident: A scalar, tuple, or dictionary representing the
+     primary key.  For a composite (e.g. multiple column) primary key,
+     a tuple or dictionary should be passed.
+    
+     For a single-column primary key, the scalar calling form is typically
+     the most expedient.  If the primary key of a row is the value "5",
+     the call looks like::
+    
+        my_object = query.get(5)
+    
+     The tuple form contains primary key values typically in
+     the order in which they correspond to the mapped
+     :class:`_schema.Table`
+     object's primary key columns, or if the
+     :paramref:`_orm.Mapper.primary_key` configuration parameter were
+     used, in
+     the order used for that parameter. For example, if the primary key
+     of a row is represented by the integer
+     digits "5, 10" the call would look like::
+    
+         my_object = query.get((5, 10))
+    
+     The dictionary form should include as keys the mapped attribute names
+     corresponding to each element of the primary key.  If the mapped class
+     has the attributes ``id``, ``version_id`` as the attributes which
+     store the object's primary key value, the call would look like::
+    
+        my_object = query.get({"id": 5, "version_id": 10})
+    
+     .. versionadded:: 1.3 the :meth:`_query.Query.get`
+        method now optionally
+        accepts a dictionary of attribute names to values in order to
+        indicate a primary key identifier.
+    
+    
+    :return: The object instance, or ``None``.

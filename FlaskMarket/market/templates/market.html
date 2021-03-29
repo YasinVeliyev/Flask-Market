@@ -1,0 +1,35 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}
+    Market Page
+{% endblock title %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-8">
+            <h2>Available Items on the Market</h2>
+            <p>Click on one of the items to start buying</p>
+            {% include 'layout/_table.html' %}
+        </div>
+        <div class="col-4">
+            <h2>Owned Items</h2>
+            <p>Click on one of the items to start selling</p>
+            <div class="col-md-6">
+                {% for owned_item in owned_items %}
+                    {% include 'layout/_sell_modal.html' %}
+                    <div style="margin-bottom: 5px" class="card text-center bg-dark">
+                        <div class="card-body">
+                            <h5 class="card-title">Card Title</h5>
+                            <button type="button" class="btn btn-outline-danger" style="margin-bottom: 5px"
+                                    data-toggle="modal" data-target="#sell-{{owned_item.id}}">
+                                Sell this Item for {{owned_item.price}} $
+                            </button>
+                            <p class="card-text"><strong>This item cost {{owned_item.price}}$</strong></p>
+                        </div>
+                    </div>
+                {% endfor %}
+                
+            </div>
+        </div>
+    </div>
+{% endblock content %}

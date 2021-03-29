@@ -1,0 +1,28 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}
+    Register Page
+{% endblock title %}
+
+{% block content %}
+    {% from "layout/_macro.html" import input%}
+   
+    <h1>Register Form</h1>
+    <div class="container">
+        <form action="" method="post" novalidate>
+            {{form.hidden_tag()}}
+            {{ input(form=form.username, placeholder='User Name') }}
+            {{ input(form=form.email, placeholder='Email') }}
+            {{ input(form=form.password, placeholder='Password') }}
+            {{ input(form=form.confirm_password, placeholder='Confirm Password') }}
+            
+            <div class="form-group">
+                {{ form.submit(class="btn btn-primary btn-lg btn-block") }}
+            </div>
+        </form>
+        <p>Do you have an account? <a class ='text-info' href ="{{url_for('login')}}">Login</a></p>
+    </div>
+    
+    
+    
+{% endblock content %}

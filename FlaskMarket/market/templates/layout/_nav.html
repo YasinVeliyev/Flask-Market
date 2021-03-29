@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Flask Market</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="{{url_for('index')}}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('market')}}">Market</a>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav">
+            {% if current_user.is_authenticated %}
+            <li class="nav-item">
+                <span class="nav-link">
+                    <i class = 'fas fa-coins' style = 'color:lawngreen;font-weight:bold'> {{current_user.budget}} <i class="fas fa-dollar-sign" ></i></i>
+                </span>
+            </li>
+            <li class="nav-item">
+                <span class="nav-link">Welcome  {{current_user.username}}</span>
+            </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('login')}}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('register')}}">Register</a>
+                </li> 
+            {% endif %}
+        </ul>
+    </div>
+</nav>
